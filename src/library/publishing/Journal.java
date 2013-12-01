@@ -4,10 +4,14 @@ import library.observers.Observer;
 import java.util.*;
 import library.Library;
 
-public class Journals implements Library {
-    
-    private List<Journal> journals = new ArrayList<Journal>();
-    private List<Observer> listeners = new ArrayList<Observer>();
+ 
+        
+   public class Journal implements Comparable<Library>,Library{ 
+   private String nameJournal;
+   private String number;
+   private char category; 
+   private int countPage;     
+   private List<Observer> listeners = new ArrayList<Observer>();
         
         public void addObserver(Observer observer) {
               listeners.add(observer);
@@ -19,28 +23,7 @@ public class Journals implements Library {
            }
        }
    
-     public void addBook(Library journalsNew) {
-        journals.add((Journal) journalsNew);
-        notifyObjectModified();
-}
         
-     @Override
-    public void getInformation() {
-    for(Journal journal:journals){   
-    System.out.println(journal.getNameJournal());
-    System.out.println(journal.getNumber());
-    System.out.println(journal.getCountPage());
-    System.out.println(journal.getCategory());
-    }
-  }    
-        
-   public class Journal extends Journals implements Comparable<Journal>{ 
-   private String nameJournal;
-   private String number;
-   private char category; 
-   private int countPage;     
-            
-   
     public Journal(String nameJournal, String number, char category, int countPage) {
         this.nameJournal = nameJournal;
         this.number = number;
@@ -49,11 +32,11 @@ public class Journals implements Library {
 
     }
 
-        public String getNameJournal() {
+        public String getName() {
             return nameJournal;
         }
 
-        public void setNameJournal(String nameJournal) {
+        public void setName(String nameJournal) {
             this.nameJournal = nameJournal;
         }
 
@@ -82,15 +65,18 @@ public class Journals implements Library {
         }
 
         @Override
-        public int compareTo(Journal o) {
-            return getNameJournal().compareTo(o.getNameJournal());
+        public int compareTo(Library o) {
+            return getName().compareTo(o.getName());
         }
-    
-    
-   }
-   
-   public void sort(){
-       Collections.sort(journals);
-    }
+       public void getInformation() {
+     
+    System.out.println(this.getName());
+    System.out.println(this.getNumber());
+    System.out.println(this.getCountPage());
+    System.out.println(this.getCategory());
+    notifyObjectModified();
+  }   
     
 }
+   
+   

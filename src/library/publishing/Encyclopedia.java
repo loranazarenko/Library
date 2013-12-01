@@ -3,10 +3,15 @@ import library.observers.Observer;
 import java.util.*;
 import library.Library;
 
-public class Encyclopedies implements Library {
-    
-   private List<Encyclopedia> encyclopedies = new ArrayList<Encyclopedia>();
-   private List<Observer> listeners = new ArrayList<Observer>();
+  
+        
+   public class Encyclopedia  implements Comparable<Library>,Library{ 
+   private String nameEncyclopedia;
+   private int countPage;  
+   private int tome; 
+   private int year;         
+   
+     private List<Observer> listeners = new ArrayList<Observer>();
         
         public void addObserver(Observer observer) {
               listeners.add(observer);
@@ -18,27 +23,7 @@ public class Encyclopedies implements Library {
            }
        }
    
-     public void addBook(Library encyclopediaNew) {
-        encyclopedies.add((Encyclopedia) encyclopediaNew);
-        notifyObjectModified();
-}
-        
-     @Override
-    public void getInformation() {
-    for(Encyclopedia encyclopedia:encyclopedies){   
-    System.out.println(encyclopedia.getNameEncyclopedia());
-    System.out.println(encyclopedia.getCountPage());
-    System.out.println(encyclopedia.getTome());
-    System.out.println(encyclopedia.getYear());
-    }
-  }    
-        
-   public class Encyclopedia extends Encyclopedies implements Comparable<Encyclopedia>{ 
-   private String nameEncyclopedia;
-   private int countPage;  
-   private int tome; 
-   private int year;         
-   
+    
     public Encyclopedia(String nameEncyclopedia, int countPage, int tome, int year) {
         this.nameEncyclopedia = nameEncyclopedia;
         this.countPage = countPage;
@@ -47,11 +32,11 @@ public class Encyclopedies implements Library {
 
     }
 
-        public String getNameEncyclopedia() {
+        public String getName() {
             return nameEncyclopedia;
         }
 
-        public void setNameEncyclopedia(String nameEncyclopedia) {
+        public void setName(String nameEncyclopedia) {
             this.nameEncyclopedia = nameEncyclopedia;
         }
 
@@ -80,16 +65,18 @@ public class Encyclopedies implements Library {
         }
 
         @Override
-        public int compareTo(Encyclopedia o) {
-           return getNameEncyclopedia().compareTo(o.getNameEncyclopedia());
+        public int compareTo(Library o) {
+           return getName().compareTo(o.getName());
         }
-   
+      public void getInformation() {
+      
+    System.out.println(this.getName());
+    System.out.println(this.getCountPage());
+    System.out.println(this.getTome());
+    System.out.println(this.getYear());
+    notifyObjectModified();
+  }    
     
-   }  
+ }  
    
-   public void sort(){
-       Collections.sort(encyclopedies);
-    }
    
-    
-}

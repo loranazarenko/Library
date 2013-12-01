@@ -3,9 +3,14 @@ import library.observers.Observer;
 import java.util.*;
 import library.Library;
 
-public class Newspapers  implements Library {
-    
-     private List<Newspaper> newspapers = new ArrayList<Newspaper>();
+   
+        
+   public class Newspaper  implements Comparable<Library>,Library { 
+   private String nameNewspaper;
+   private String number;
+   private int countPage; 
+   private String dateString;     
+
      private List<Observer> listeners = new ArrayList<Observer>();
         
         public void addObserver(Observer observer) {
@@ -17,29 +22,7 @@ public class Newspapers  implements Library {
                listener.objectModified(this);
            }
        }
-   
-     public void addBook(Library newspaperNew) {
-        newspapers.add((Newspaper) newspaperNew);
-        notifyObjectModified();
-}
-        
-     @Override
-    public void getInformation() {
-    for(Newspaper newspaper:newspapers){   
-    System.out.println(newspaper.getNameNewspaper());
-    System.out.println(newspaper.getNumber());
-    System.out.println(newspaper.getCountPage());
-    System.out.println(newspaper.getDateString());
-    }
-  }    
-        
-   public class Newspaper extends Newspapers implements Comparable<Newspaper>{ 
-   private String nameNewspaper;
-   private String number;
-   private int countPage; 
-   private String dateString;     
-            
-   
+    
     public Newspaper(String nameNewspaper, String number, int countPage, String dateString) {
         this.nameNewspaper = nameNewspaper;
         this.number = number;
@@ -48,11 +31,11 @@ public class Newspapers  implements Library {
 
     }
 
-        public String getNameNewspaper() {
+        public String getName() {
             return nameNewspaper;
         }
 
-        public void setNameNewspaper(String nameBook) {
+        public void setName(String nameBook) {
             this.nameNewspaper = nameNewspaper;
         }
 
@@ -81,13 +64,21 @@ public class Newspapers  implements Library {
         }
         
        @Override
-        public int compareTo(Newspaper o) {
-            return getNameNewspaper().compareTo(o.getNameNewspaper());
+        public int compareTo(Library o) {
+            return getName().compareTo(o.getName());
         }
    
-   } 
-    public void sort(){
-       Collections.sort(newspapers);
-    }
+       public void getInformation() {
    
-}
+    System.out.println(this.getName());
+    System.out.println(this.getNumber());
+    System.out.println(this.getCountPage());
+    System.out.println(this.getDateString());
+ 
+  }   
+       
+       
+   } 
+    
+   
+

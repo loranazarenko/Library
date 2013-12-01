@@ -6,8 +6,14 @@ import java.util.*;
 import library.Library;
 
 
-public class Books implements Library {
-        private List<Book> books = new ArrayList<Book>();
+               
+   public class Book implements Comparable<Library>,Library{ 
+   private String nameBook;
+   private String author;
+   private int countPage; 
+   private String publishingHouse;  
+   private int year;     
+      
         private List<Observer> listeners = new ArrayList<Observer>();
         
         public void addObserver(Observer observer) {
@@ -19,32 +25,7 @@ public class Books implements Library {
                listener.objectModified(this);
            }
        }
-       
-    
-        public void addBook(Library bookNew) {
-              books.add((Book) bookNew);
-              notifyObjectModified();
-}
         
-     @Override
-    public void getInformation() {
-    for(Book book:books){   
-    System.out.println(book.getNameBook());
-    System.out.println(book.getAuthor());
-    System.out.println(book.getCountPage());
-    System.out.println(book.getPublishingHouse());
-    System.out.println(book.getYear());
-    }
-  }    
-
-               
-   public class Book extends Books  implements Comparable<Book>{ 
-   private String nameBook;
-   private String author;
-   private int countPage; 
-   private String publishingHouse;  
-   private int year;     
-            
    
     public Book(String nameBook, String author, int countPage, String publishingHouse, int year) {
         this.nameBook = nameBook;
@@ -55,11 +36,11 @@ public class Books implements Library {
     }
  
 
-    public String getNameBook() {
+    public String getName() {
         return nameBook;
     }
 
-    public void setNameBook(String nameBook) {
+    public void setName(String nameBook) {
         this.nameBook = nameBook;
     }
 
@@ -95,18 +76,23 @@ public class Books implements Library {
         this.year = year;
     }
 
-        @Override
-        public int compareTo(Book o) {
-           return getNameBook().compareTo(o.getNameBook()); 
-        }
-   
+     @Override
+        public int compareTo(Library o) {
+           return getName().compareTo(o.getName()); 
+        }    
+        
+        public void getInformation() {
+     
+      System.out.println(this.getName());
+      System.out.println(this.getAuthor());
+      System.out.println(this.getCountPage());
+      System.out.println(this.getPublishingHouse());
+      System.out.println(this.getYear());
+      notifyObjectModified();
     } 
+        
    
+   }     
+       
             
-   public void sort(){
-       Collections.sort(books);
-    }
-    
   
- 
-}
