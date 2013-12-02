@@ -13,4 +13,6 @@ public interface Library {
     public String getName();
     public void setName(String name);
     public int compareTo(Library o);
+    public void setCountPage(int countPage);
+    public int getCountPage();
 }
